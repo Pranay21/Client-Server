@@ -1,0 +1,34 @@
+DEBUG:root:*****Server Side*****
+DEBUG:root:HTTP/1.1 200 OK
+Content-Type: text/html
+
+<html>
+<head>
+	<title>
+		Home page
+	</title>
+</head>
+<body>
+	<h1> Computer Network, Project 1</h1><br>
+<h3>Pranaya Bhat</h3><br>
+<h3>1001408965</h3>
+</body>
+
+</html>
+DEBUG:root:*****ClientSide*****
+DEBUG:root:Host name of the server: Localhost
+DEBUG:root:Socket family: AF_INET
+DEBUG:root:Socket type: SOCK_STREAM
+DEBUG:root:------------------------------------------------------
+DEBUG:root:HTTP/1.1 404 File Not Found
+
+DEBUG:root:*****ClientSide*****
+DEBUG:root:Host name of the server: Localhost
+DEBUG:root:Socket family: AF_INET
+DEBUG:root:Socket type: SOCK_STREAM
+DEBUG:root:------------------------------------------------------
+DEBUG:root:*****Server Side*****
+DEBUG:root:HTTP/1.1 200 OK
+Content-Type: text/html
+
+COMPUTER NETWORK

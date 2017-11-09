@@ -1,0 +1,176 @@
+Bool Correlate (int size, float ArrayOne[], float ArrayTwo[], float *spearmanCoefficient, float *correlationFlag)
+{
+    int current_rank,tie_count;
+    double one_ranking[100],tie_sum,two_ranking[100];
+    int temp = 0, j, i;
+    int n= size-1;
+    float ArrayoneSorted[100],ArraytwoSorted[100],arrayoneranksorted[size],arraytworanksorted[size],data,position;
+    float ArrayoneRank[100],ArraytwoRank[100],avg1,avg2,var1,var2,numerator=0,denominator,r,sum1=0,sum2=0,sum3=0,sum4=0,flag;
+
+
+    for(i=0;i<size;i++){
+        ArraytwoSorted[i]=ArrayTwo[i];
+        ArrayoneSorted[i]=ArrayOne[i];
+    }
+
+ //Step 1:sorting of arrayone and arraytwo
+    for (i = 1; i < size; i++) {
+        for (j = 0; j < size- i; j++) {
+            if (ArrayoneSorted[j] > ArrayoneSorted[j + 1]) {
+                temp = ArrayoneSorted[j];
+                ArrayoneSorted[j] = ArrayoneSorted[j + 1];
+                ArrayoneSorted[j + 1] = temp;
+            }
+            if (ArraytwoSorted[j] > ArraytwoSorted[j + 1]) {
+                temp = ArraytwoSorted[j];
+                ArraytwoSorted[j] = ArraytwoSorted[j + 1];
+                ArraytwoSorted[j + 1] = temp;
+            }
+        }
+    }
+
+
+//Step 2:'Assign initial ranking to each element .
+  //  'Ranks are assigned in descending order (i.e. smallest number
+    //'will have a rank of 1)
+
+    for(i=0;i<size;i++)
+    {
+     current_rank=5;
+
+     for(j=1;j<size;j++)
+     {
+       if(ArrayoneSorted[j]>ArrayoneSorted[i]||((ArrayoneSorted[j]=ArrayoneSorted[i]) && j>i))
+       {
+           current_rank=current_rank-1;
+       }
+       one_ranking[i]=current_rank;
+   }
+
+   
+
+for(i=0;i<size;i++)
+{
+ current_rank=5;
+
+ for(j=1;j<size;j++)
+ {
+   if(ArraytwoSorted[j]>ArraytwoSorted[i]||((ArraytwoSorted[j]=ArraytwoSorted[i]) && j>i))
+   {
+       current_rank=current_rank-1;
+   }
+   two_ranking[i]=current_rank;
+}
+
+}
+
+     //Step 3: for allocating the ranks for same element by finding the average ranks
+
+for(i=0;i<size-1;i++)
+{
+    for(j=0;j<size-i-1;j++)
+    {
+        if (ArrayoneSorted[j] == ArrayoneSorted[j+1])
+        {
+            one_ranking[j] = (float)((2*j)+1)/2;
+            one_ranking[j+1] = (float)((2*j)+1)/2;
+        }
+    }
+}
+for(i=0;i<size-1;i++)
+{
+    for(j=0;j<size-i-1;j++)
+    {
+        if (ArraytwoSorted[j] == ArraytwoSorted[j+1])
+        {
+            two_ranking[j] = (float)((2*j)+1)/2;
+            two_ranking[j+1] = (float)((2*j)+1)/2;
+        }
+    }
+}
+
+    
+
+    //Step 4 - sorting the rank array in the original order
+
+for (i=0;i<size;i++)
+{
+    data = ArrayTwo[i];
+    for(j=0;j<size;j++)
+    {
+        if(ArrayoneSorted[j] == data)
+        {
+            position = j;
+            break;
+        }
+
+    }
+}
+    arrayoneranksorted[i] = rank1[j];
+
+    data = ArrayTwo[i];
+    for(j=0;j<size;j++)
+    {
+        if(ArraytwoSorted[j] == data)
+        {
+            position = j;
+            break;
+        }
+
+    }
+    arraytworanksorted[i] = rank2[j];
+}
+
+for(i=0;i<size;i++)
+{
+    sum1=sum1 + arrayoneranksorted[i];
+avg1=sum1/size;//mx value
+sum3=sum3 + pow((arrayoneranksorted[i] - avg1), 2);
+var1=sum3/size;//var1
+}
+
+for(i=0;i<size;i++)
+{
+
+    sum2=sum2 + arraytworanksorted[i];
+avg2=sum2/size;//my value
+sum4=sum4 + pow((arraytworanksorted[i] - avg2), 2);
+var2=sum4/size;//var2
+}
+
+denominator=sqrt(size*var1*var2);//denominator
+
+for(i=0;i<size;i++)
+{
+numerator=numerator+((arrayoneranksorted[i]-avg1)*(arraytworanksorted[i]-avg2));//numerator
+}
+
+r=numerator/denominator;
+
+
+if(r>0.9&&r<1.0) 
+{
+    flag=1; 
+}
+elseif(r>-0.9&&r<-1.0) 
+{
+    flag=-1; 
+}
+else
+{
+    flag=0;
+} 
+
+if (size<=0) 
+{
+    return 0; 
+}
+else 
+{
+    return 1; 
+}
+
+
+}
+
+}

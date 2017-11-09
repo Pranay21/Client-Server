@@ -1,0 +1,140 @@
+//Define Correlate() Function
+_Bool Correlate (int size, float arrayOne[], float arrayTwo[], float * SpearmanCoefficient, float * correlationFlag)  
+{
+    float flag;
+    int i,j;
+    float sumX=0,sumY=0,sum3=0,sum4=0,avg1,avg2,var1,var2,numo=0,deno,r;
+    
+    for (i=0; i<size; ++i)
+        scanf("%d", &ArrayOne[i]);
+    
+    for (i=0; i<size; ++i)
+    {
+        for (j=i+1; j<size; ++j)
+        {
+            if (ArrayOne[i] > ArrayOne[j])
+            {
+                a=ArrayOne2[i];
+                ArrayOne2[i]=ArrayOne2[j];
+                ArrayOne2[j]=a;
+            }
+        }                                            // Step 1 of sorting from x to x'
+    }                                                //Sorting ArrayOne into ArrayOne2.
+    
+    for (i=0,; i<size ; ++i)
+    {                                                // Step 2 of sorting from x' to x''
+        float ArrayOne3[i]=i+1;                      //forming rank for the arrayOne
+    }
+    
+    
+    for (i=0; i<size ;i++)
+    {
+        if( ArrayOne2[i]==ArrayOne2[i+1])                   //Sorted Array
+        {
+            ArrayOne3[i]= (ArrayOne3[i]+ArrayOne3[i+1])/2;      // Step 3 of sorting from x'' to x'''
+            ArrayOne3[i+1]= ArrayOne3[i];               //Averaging page rank
+        }
+    }
+    
+    for (i=0; i<size; i++)
+    {
+        for(j=0; j<size; j++)
+        {
+            if(ArrayOne[i]==ArrayOne2[j])
+            {                                      // Step 4 of sorting from x''' to x''''
+                ArrayOne4[i]=ArrayOne3[j];         //Original Order sorted in ArrayOne4
+            }
+        }
+    }
+    
+    for (i=0; i<size; ++i)
+    {
+        for (j=i+1; j<size; ++j)
+        {
+            if (ArrayTwo[i] > ArrayTwo[j])
+            {
+                a=ArrayTwo2[i];
+                ArrayTwo2[i]=ArrayTwo2[j];
+                ArrayTwo2[j]=a;
+            }
+        }                                            // Step 1 of sorting from y to y'
+    }                                                //Sorting ArrayTwo into ArrayTwo2.
+    
+    for (i=0,; i<size ; ++i)
+    {                                                // Step 2 of sorting from y' to y''
+        float ArrayTwo3[i]=i+1;                       //forming rank for the arrayTwo
+    }
+    
+    
+    for (i=0; i<size ;i++)
+    {
+        if( ArrayTwo2[i]==ArrayTwo2[i+1])                   //Sorted Array
+        {
+            ArrayTwo3[i]= (ArrayTwo3[i]+ArrayTwo3[i+1])/2;      // Step 3 of sorting from y'' to y'''
+            ArrayTwo3[i+1]= ArrayTwo3[i];               //Averaging page rank
+        }
+    }
+    
+    for (i=0; i<size; i++)
+    {
+        for(j=0; j<size; j++)
+        {
+            if(ArrayTwo[i]==ArrayTwo2[j])
+            {                                   // Step 4 of sorting from y''' to y''''
+                ArrayTwo4[i]=ArrayTwo3[j];         //Original Order sorted in ArrayTwo4
+            }
+        }
+    }
+                                                    // from here it is the given code
+    for(i=0;i<size;i++)
+    {
+        sumX=sumX + ArrayOne4[i];                    // Sum of elements of arrayOne
+        avg1=sumX/size;                               //Mx
+        sum3=sum3 + pow((ArrayOne4[i] - avg1), 2);   //Variance x Numerator calculation
+        var1=sum3/size;                             //Var1
+    }
+    printf("%f\n",avg1);                             //printing mean of x
+    printf("%f\n",var1);                             //printing variance of x
+    
+    for(i=0;i<size;i++)
+    {
+        sumY=sumY + ArrayTwo4[i];                    //Sum of elements of arrayTwo
+        avg2=sumY/size;                                 //My
+        sum4=sum4 + pow((ArrayTwo4[i] - avg2), 2);  //Variance y Numerator calculation
+        var2=sum4/size;                             //var2
+    }
+    printf("%f\n",avg2);                           //Printing mean of y
+    printf("%f\n",var2);                            //Printing variance of y
+    
+    
+    deno=size*sqrt(var1*var2);                      //r value deno
+    printf("%f\n",deno);                            // Printing Denominator
+    
+    
+    for(i=0;i<size;i++)
+    {
+        numo=numo+((ArrayOne4[i]-avg1)*(ArrayTwo4[i]-avg2));      //r value numerator
+    }
+    printf("%f\n",numo);
+    r=numo/deno;
+    printf("%f",r);
+    
+    if(r>=0.9&&r<=1.0)
+    {
+        flag=1;
+    }
+    elseif(r>=-0.9&&r<=-1.0)
+    {
+        flag=-1;
+    }
+    else
+    {
+        flag=0;
+    }
+    
+    if (size<=0)
+        return 0;
+    else
+        return 1;
+}
+
